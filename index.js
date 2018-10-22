@@ -18,6 +18,7 @@ app.use('/*', function(req, res, next) {
 
 app.use('/', (req, res, next) => {
 	console.log("Logging FORWARDED-FOR HEADERS", req.headers["x-forwarded-for"])
+	console.log("Origin Header:", req.headers["Origin"])
 	console.log("Logging IP.")
 	console.log("REQ.IP :: ", req.ip)
 	console.log("REQUEST.CONNECTION.REMOTEADDRESS", req.connection.remoteAddress)
