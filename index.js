@@ -29,12 +29,13 @@ app.use('/', (req, res, next) => {
 	next();
 });
 
+app.use('/public', serveStatic(path.join(__dirname, '/public')))
+
 app.get('*', (req, res) => {
 	console.log("Catch-All Handler")
 	res.status(200).send("All Clear Chief.")
 });
 
-app.use('/public', serveStatic(path.join(__dirname, '/public')))
 
 app.use(function(err, req, res, next) {
 	console.log(err)
