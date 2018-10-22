@@ -9,7 +9,7 @@ const app = express();
 app.use(cookieParser());
 
 app.use('/*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", "https://cookie-sync-audience-service.herokuapp.com/");
   res.header("Access-Control-Allow-Headers", "Origin, partner_1_tracking_id, X-Requested-With, Content-Type, Accept");
   res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT");
   res.header("Access-Control-Allow-Credentials", true);
