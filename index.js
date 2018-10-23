@@ -34,9 +34,9 @@ app.get('/track', (req, res, next) => {
 	console.log(req.query.audience_tracking_id)
 	console.log(req.query.contentFocus)
 	console.log("Attaching Pixel Metadata to Request Body.")
-		req.headers('x-audience-tracking-id', req.query.audience_tracking_id);
-		req.headers('x-partner_1_tracking_id', req.cookies.partner_1_tracking_id);
-		req.headers('x-contentFocus', req.query.contentFocus);
+		req.headers['x-audience-tracking-id'] = req.query.audience_tracking_id;
+		req.headers['x-partner_1_tracking_id'] = req.cookies.partner_1_tracking_id;
+		req.headers['x-contentFocus'] = req.query.contentFocus;
 		console.log("Preparing to pipe request to https://cookie-sync-mainframe.herokuapp.com")
 
 		req.pipe(request.post('https://cookie-sync-mainframe.herokuapp.com/sync')
