@@ -22,6 +22,8 @@ app.use('/', (req, res, next) => {
 	console.log("Logging Proxy IP ", req.ip)
 	console.log("LOGGING COOKIES: ", req.cookies)
 	console.log(" ")
+	console.log("Logging user's detected browser: ", req.headers['user-agent'])
+	console.log(" ")
 	if (!req.cookies['partner_1_tracking_id']) {
 		console.log('Processed Request - User Does Not Have Cookie.')
 		const uniqueID = uuidv4();
