@@ -32,7 +32,9 @@ app.get('/track', (req, res, next) => {
 	console.log("Tracking Pixel Input:")
 	console.log(req.query.audience_tracking_id)
 	console.log(req.query.contentFocus)
+	console.log(typeof(req.query.contentFocus))
 		// Hang Request
+		res.status(200).send('ok')
 });
 
 app.use('/public', serveStatic(path.join(__dirname, '/public')))
