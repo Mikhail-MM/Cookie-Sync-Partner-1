@@ -40,7 +40,7 @@ app.get('/track', (req, res, next) => {
 		console.log("Preparing to pipe request to https://cookie-sync-mainframe.herokuapp.com")
 
 		req.pipe(request.post('https://cookie-sync-mainframe.herokuapp.com/sync')
-			.on(response => {
+			.on('response', (response) => {
 				console.log("Piped Response Received")
 				console.log("Logging piped response headers: ", response.headers)
 				
