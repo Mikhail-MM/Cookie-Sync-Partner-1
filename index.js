@@ -3,6 +3,7 @@ const path = require('path');
 const uuidv4 = require('uuid/v4');
 const cookieParser = require('cookie-parser')
 const serveStatic = require('serve-static')
+const request = require('request')
 
 const app = express();
 
@@ -29,12 +30,21 @@ app.use('/', (req, res, next) => {
 });
 
 app.get('/track', (req, res, next) => {
-	console.log("Tracking Pixel Input:")
+	console.log("Tracking Pixel Input: ")
 	console.log(req.query.audience_tracking_id)
 	console.log(req.query.contentFocus)
-	console.log(typeof(req.query.contentFocus))
-		// Hang Request
-		res.status(200).send('ok')
+	console.log("Attaching Pixel Metadata to Request Body.")
+		req.body.audience_service_id = req.query.audience_tracking_id;
+		req.body.partner_1_tracking_id = req.cookies.partner_1_tracking_id;
+		req.body.contentFocus = req.query.contentFocus;
+		console.log("Preparing to pipe request to https://cookie-sync-mainframe.herokuapp.com")
+
+		req.pipe(request.post('https://cookie-sync-mainframe.herokuapp.com')
+			.on(response => {
+				console.log("Piped Response Received")
+				console.log("Logging piped response headers: ", response.headers)
+				
+			})).pipe(res)
 });
 
 app.use('/public', serveStatic(path.join(__dirname, '/public')))
