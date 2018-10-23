@@ -28,6 +28,13 @@ app.use('/', (req, res, next) => {
 	next();
 });
 
+app.get('/track', (req, res, next) => {
+	console.log("Tracking Pixel Input:")
+	console.log(req.query.audience_tracking_id)
+	console.log(req.query.contentFocus)
+		// Hang Request
+});
+
 app.use('/public', serveStatic(path.join(__dirname, '/public')))
 
 app.get('*', (req, res) => {
