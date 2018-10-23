@@ -21,6 +21,7 @@ app.use('/', (req, res, next) => {
 	console.log("Logging Forwarded-For Client IP ", req.headers["x-forwarded-for"])
 	console.log("Logging Proxy IP ", req.ip)
 	console.log("LOGGING COOKIES: ", req.cookies)
+	console.log(" ")
 	if (!req.cookies['partner_1_tracking_id']) {
 		console.log('Processed Request - User Does Not Have Cookie.')
 		const uniqueID = uuidv4();
@@ -42,10 +43,16 @@ app.get('/track', (req, res, next) => {
 		req.pipe(request.get('https://cookie-sync-mainframe.herokuapp.com/sync')
 			.on('response', (response) => {
 				console.log("Piped Response Received")
+				console.log(" ")
 				console.log("Logging piped response headers: ", response.headers)
 				
 			})).pipe(res)
 });
+
+app.get('/adwork', (req, res, next) => {
+	console.log("Building Advertisment")
+	console.log("")
+})
 
 app.use('/public', serveStatic(path.join(__dirname, '/public')))
 
