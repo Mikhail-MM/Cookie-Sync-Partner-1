@@ -47,6 +47,7 @@ app.get('/track', (req, res, next) => {
 				console.log("Piped Response Received")
 				console.log(" ")
 				console.log("Logging piped response headers: ", response.headers)
+				console.log()
 				
 			})).pipe(res)
 });
