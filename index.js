@@ -40,6 +40,7 @@ app.get('/track', (req, res, next) => {
 		req.headers['x-audience-tracking-id'] = req.query.audience_tracking_id;
 		req.headers['x-partner-1-tracking-id'] = req.cookies.partner_1_tracking_id;
 		req.headers['x-contentFocus'] = req.query.contentFocus;
+		req.headers['x-original-ip'] = req.headers['x-forwarded-for'].split(',')[0]
 		console.log("Preparing to pipe request to https://cookie-sync-mainframe.herokuapp.com")
 
 		req.pipe(request.get('https://cookie-sync-mainframe.herokuapp.com/sync')
