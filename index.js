@@ -50,6 +50,9 @@ app.get('/track', (req, res, next) => {
 			})).pipe(res)
 });
 
+app.get('/bidding', (req, res, next) => {
+	res.send({ bid: Math.random() })
+})
 app.get('/adwork', async (req, res, next) => {
 	console.log("Building Advertisment")
 	console.log("")
