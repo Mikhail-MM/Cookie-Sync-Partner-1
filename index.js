@@ -17,7 +17,7 @@ app.use('/*', function(req, res, next) {
   next();
 });
 
-app.use('/', (req, res, next) => {
+app.use('/*', (req, res, next) => {
 	console.log("Logging Forwarded-For Client IP ", req.headers["x-forwarded-for"])
 	console.log("Logging Proxy IP ", req.ip)
 	console.log("LOGGING COOKIES: ", req.cookies)
