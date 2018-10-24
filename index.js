@@ -55,6 +55,9 @@ app.get('/track', (req, res, next) => {
 app.get('/adwork', (req, res, next) => {
 	console.log("Building Advertisment")
 	console.log("")
+	req.pipe(request.get('http://localhost:1000/adworks').on('response', (response) => {
+		console.log("Response Received.")
+	})).pipe(res)
 })
 
 app.use('/public', serveStatic(path.join(__dirname, '/public')))
