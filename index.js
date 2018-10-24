@@ -50,7 +50,7 @@ app.get('/track', (req, res, next) => {
 			})).pipe(res)
 });
 
-app.get('/adwork', (req, res, next) => {
+app.get('/adwork', async (req, res, next) => {
 	console.log("Building Advertisment")
 	console.log("")
 	req.pipe(request.get('https://cookie-sync-mainframe.herokuapp.com/adworks').on('response', (response) => {
