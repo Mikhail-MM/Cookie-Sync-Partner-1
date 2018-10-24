@@ -10,7 +10,7 @@ const app = express();
 app.use(cookieParser());
 
 app.use('/*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://cookie-sync-audience-service.herokuapp.com");
+  res.header("Access-Control-Allow-Origin", "https://cookie-sync-audience-service.herokuapp.com, https://cookie-sync-publisher.herokuapp.com");
   res.header("Access-Control-Allow-Headers", "Origin, partner_1_tracking_id, X-Requested-With, Content-Type, Accept, x-audience-tracking-id, x-partner-1-tracking-id, x-contentFocus");
   res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT");
   res.header("Access-Control-Allow-Credentials", true);
@@ -33,13 +33,10 @@ app.use('/', (req, res, next) => {
 });
 
 app.get('/track', (req, res, next) => {
-	console.log("Tracking Pixel Input: ")
-	console.log(req.query.audience_tracking_id)
-	console.log(req.query.contentfocus)
 	console.log("Attaching Pixel Metadata to Request Body.")
 		req.headers['x-audience-tracking-id'] = req.query.audience_tracking_id;
 		req.headers['x-partner-1-tracking-id'] = req.cookies.partner_1_tracking_id;
-		req.headers['x-contentFocus'] = req.query.contentFocus;
+		req.headers['x-contentfocus'] = req.query.contentFocus;
 		req.headers['x-original-ip'] = req.headers['x-forwarded-for'].split(',')[0]
 		console.log("Preparing to pipe request to https://cookie-sync-mainframe.herokuapp.com")
 
@@ -56,7 +53,7 @@ app.get('/track', (req, res, next) => {
 app.get('/adwork', (req, res, next) => {
 	console.log("Building Advertisment")
 	console.log("")
-	req.pipe(request.get('http://localhost:1000/adworks').on('response', (response) => {
+	req.pipe(request.get('https://cookie-sync-mainframe.herokuapp.com/adworks').on('response', (response) => {
 		console.log("Response Received.")
 	})).pipe(res)
 })
