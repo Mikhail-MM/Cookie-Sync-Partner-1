@@ -41,7 +41,7 @@ app.get('/track', (req, res, next) => {
 	console.log("Attaching Pixel Metadata to Request Body.")
 		console.log("Preparing to pipe request to https://cookie-sync-mainframe.herokuapp.com")
 
-		req.pipe(request.get('https://cookie-sync-mainframe.herokuapp.com/sync')
+		req.pipe(request.get('https://cookie-sync-mainframe.herokuapp.com/partner-sync')
 			.on('response', (response) => {
 				console.log("Piped Response Received")
 				console.log(" ")
