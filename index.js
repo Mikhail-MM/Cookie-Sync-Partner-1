@@ -56,12 +56,14 @@ app.get('/bidding', (req, res, next) => {
 app.get('/adwork', async (req, res, next) => {
 	console.log("Building Advertisment")
 	console.log("")
+	/*
 	if (req.query['mainframe-tracking-id'] && req.cookies.partner_1_tracking_id) {
 		console.log("Linking mainframe tracking cookie and partner 1 tracker")
 		req.headers['x-mainframe-tracking-id'] = req.query['mainframe-tracking-id']
 		req.headers['x-partner-1-tracking-id'] = req.cookies.partner_1_tracking_id
 			const mainframeLink = await rp('https://cookie-sync-mainframe.herokuapp.com/mainframe-sync')
 	}
+	*/
 	req.pipe(request.get('https://cookie-sync-mainframe.herokuapp.com/adworks').on('response', (response) => {
 		console.log("Response Received.")
 	})).pipe(res)
