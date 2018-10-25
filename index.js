@@ -21,7 +21,7 @@ app.use('/*', function(req, res, next) {
 app.use('/*', (req, res, next) => {
 			console.log("Check Origin: ", req.headers['origin'])
 			console.log("Logging Cookies: ", req.cookies)
-			if ((!req.cookies['partner_1_tracking_id']) && req.headers['origin']) {
+			if (!req.cookies['partner_1_tracking_id']) {
 				console.log('Processed Request - User Does Not Have Cookie.')
 				const uniqueID = uuidv4();
 				res.setHeader('Set-Cookie', [`partner_1_tracking_id=${uniqueID}`]);
