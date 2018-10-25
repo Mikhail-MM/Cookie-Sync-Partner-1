@@ -64,7 +64,7 @@ app.get('/adwork', async (req, res, next) => {
 	})).pipe(res)
 })
 
-app.use('/partnerAd', serveStatic(path.join(__dirname, '/public')))
+app.use('/partnerAd', serveStatic(path.join(__dirname, '/ads')))
 
 app.get('*', (req, res) => {
 	console.log("Catch-All Handler")
