@@ -62,7 +62,7 @@ app.get('/adwork', async (req, res, next) => {
 		req.headers['x-mainframe-tracking-id'] = req.query['mainframe-tracking-id']
 		req.headers['x-partner-1-tracking-id'] = req.cookies.partner_1_tracking_id
 			const options = {
-				url: 'https://cookie-sync-mainframe.herokuapp.com/mainframe-sync'
+				url: 'https://cookie-sync-mainframe.herokuapp.com/mainframe-sync',
 				headers: {
 					'x-mainframe-tracking-id': req.query['mainframe-tracking-id'],
 					'x-partner-1-tracking-id': req.cookies.partner_1_tracking_id
