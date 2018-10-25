@@ -51,7 +51,7 @@ app.get('/track', (req, res, next) => {
 });
 
 app.get('/bidding', (req, res, next) => {
-	res.send({
+	res.json({
 		origin: 'https://cookie-sync-partner-1.herokuapp.com', 
 		bid: Math.random() 
 	})
