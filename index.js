@@ -18,29 +18,24 @@ app.use('/*', function(req, res, next) {
 });
 
 app.use('/*', (req, res, next) => {
-	console.log("Logging Forwarded-For Client IP ", req.headers["x-forwarded-for"])
-	console.log("Logging Proxy IP ", req.ip)
-	console.log("LOGGING COOKIES: ", req.cookies)
-	console.log(" ")
-	console.log("Logging user's detected browser: ", req.headers['user-agent'])
-	console.log(" ")
-		req.headers['x-audience-tracking-id'] = req.query.audience_tracking_id;
-		req.headers['x-partner-1-tracking-id'] = req.cookies.partner_1_tracking_id;
-		req.headers['x-contentfocus'] = req.query.contentFocus;
-		req.headers['x-original-ip'] = (req.headers['x-forwarded-for']) ? req.headers['x-forwarded-for'].split(',')[0] : req.ip
-	console.log("Check Origin: ", req.headers['origin'])
-	if ((!req.cookies['partner_1_tracking_id']) && req.headers['origin']) {
-		console.log('Processed Request - User Does Not Have Cookie.')
-		const uniqueID = uuidv4();
-		res.setHeader('Set-Cookie', [`partner_1_tracking_id=${uniqueID}`]);
-	}
+			console.log("Check Origin: ", req.headers['origin'])
+			console.log("Logging Cookies: ", req.cookies)
+			if ((!req.cookies['partner_1_tracking_id']) && req.headers['origin']) {
+				console.log('Processed Request - User Does Not Have Cookie.')
+				const uniqueID = uuidv4();
+				res.setHeader('Set-Cookie', [`partner_1_tracking_id=${uniqueID}`]);
+			}
 	next();
 });
 
 app.get('/track', (req, res, next) => {
 	console.log("Attaching Pixel Metadata to Request Body.")
 		console.log("Preparing to pipe request to https://cookie-sync-mainframe.herokuapp.com")
-
+		req.headers['x-audience-tracking-id'] = req.query.audience_tracking_id;
+		req.headers['x-partner-1-tracking-id'] = req.cookies.partner_1_tracking_id;
+		req.headers['x-contentfocus'] = req.query.contentFocus;
+		req.headers['x-original-ip'] = (req.headers['x-forwarded-for']) ? req.headers['x-forwarded-for'].split(',')[0] : req.ip
+		console.log("Logging Headers: ", req.headers)
 		req.pipe(request.get('https://cookie-sync-mainframe.herokuapp.com/partner-sync')
 			.on('response', (response) => {
 				console.log("Piped Response Received")
