@@ -29,7 +29,7 @@ app.use('/*', (req, res, next) => {
 		req.headers['x-contentfocus'] = req.query.contentFocus;
 		req.headers['x-original-ip'] = (req.headers['x-forwarded-for']) ? req.headers['x-forwarded-for'].split(',')[0] : req.ip
 	console.log("Check Origin: ", req.headers['origin'])
-	if (!req.cookies['partner_1_tracking_id']) {
+	if ((!req.cookies['partner_1_tracking_id']) && req.headers['origin']) {
 		console.log('Processed Request - User Does Not Have Cookie.')
 		const uniqueID = uuidv4();
 		res.setHeader('Set-Cookie', [`partner_1_tracking_id=${uniqueID}`]);
