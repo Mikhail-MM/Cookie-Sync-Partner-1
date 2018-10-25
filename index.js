@@ -27,7 +27,7 @@ app.use('/*', (req, res, next) => {
 		req.headers['x-audience-tracking-id'] = req.query.audience_tracking_id;
 		req.headers['x-partner-1-tracking-id'] = req.cookies.partner_1_tracking_id;
 		req.headers['x-contentfocus'] = req.query.contentFocus;
-		req.headers['x-original-ip'] = req.headers['x-forwarded-for'].split(',')[0]
+		req.headers['x-original-ip'] = (req.headers['x-forwarded-for']) ? req.headers['x-forwarded-for'].split(',')[0] : req.ip
 	if (!req.cookies['partner_1_tracking_id']) {
 		console.log('Processed Request - User Does Not Have Cookie.')
 		const uniqueID = uuidv4();
@@ -64,7 +64,7 @@ app.get('/adwork', async (req, res, next) => {
 	})).pipe(res)
 })
 
-app.use('/public', serveStatic(path.join(__dirname, '/public')))
+app.use('/partnerAd', serveStatic(path.join(__dirname, '/public')))
 
 app.get('*', (req, res) => {
 	console.log("Catch-All Handler")
